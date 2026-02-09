@@ -1,0 +1,432 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html>
+<html b:version='2' class='v2' expr:dir='data:blog.languageDirection' xmlns='http://www.w3.org/1999/xhtml' xmlns:b='http://www.google.com/2005/gml/b' xmlns:data='http://www.google.com/2005/gml/data' xmlns:expr='http://www.google.com/2005/gml/expr'>
+<head>
+  <b:include data='blog' name='all-head-content'/>
+  <meta charset='UTF-8'/>
+  <meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover' name='viewport'/>
+  <title><data:blog.pageTitle/></title>
+
+  <!-- Google Fonts -->
+  <link href='https://fonts.googleapis.com/css2?family=Roboto+Condensed:wght@400;700&amp;family=JetBrains+Mono:wght@400;700&amp;display=swap' rel='stylesheet'/>
+
+  <b:skin><![CDATA[
+    /*
+    -----------------------------------------------
+    ANTINNA INDUSTRIAL-NOIR OS (ADVANCED BLOGGER)
+    -----------------------------------------------
+    */
+    :root {
+      --bg-deep: #0a0a0a;
+      --bg-surface: #141414;
+      --bg-elevated: #1e1e1e;
+      --accent-cyan: #00d4ff;
+      --accent-orange: #ff6b35;
+      --accent-green: #39ff14;
+      --text-high: #ffffff;
+      --text-mid: #a0a0a0;
+      --text-low: #444444;
+      --border: 1px solid rgba(255, 255, 255, 0.08);
+      --neo-shadow: 10px 10px 20px #050505, -5px -5px 15px #1a1a1a;
+      --neo-inset: inset 2px 2px 5px #050505, inset -2px -2px 5px #252525;
+      --glow-cyan: 0 0 10px rgba(0, 212, 255, 0.3);
+    }
+
+    body {
+      background-color: var(--bg-deep);
+      color: var(--text-high);
+      font-family: 'Roboto Condensed', sans-serif;
+      margin: 0; padding: 0;
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* --- LAYOUT STRUCTURE --- */
+    .app-shell {
+      display: flex;
+      flex-direction: column;
+      gap: 24px;
+      padding: 20px;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    /* --- COMPONENT: FREQUENCY HEADER --- */
+    .frequency-container {
+      overflow: hidden;
+      padding: 10px 0;
+    }
+    .frequency-label {
+      font-family: 'JetBrains Mono';
+      font-size: 10px;
+      color: var(--accent-cyan);
+      text-transform: uppercase;
+      margin-bottom: 12px;
+      letter-spacing: 2px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .frequency-label::after {
+      content: ''; flex: 1; height: 1px; background: rgba(0, 212, 255, 0.2);
+    }
+    .mentor-scroller {
+      display: flex;
+      gap: 20px;
+      overflow-x: auto;
+      padding-bottom: 15px;
+      scrollbar-width: none;
+    }
+    .mentor-node {
+      flex: 0 0 75px;
+      text-align: center;
+      transition: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      cursor: pointer;
+    }
+    .mentor-node:hover { transform: scale(1.05); }
+    .mentor-avatar-wrap {
+      width: 70px; height: 70px;
+      border-radius: 50%;
+      background: var(--bg-surface);
+      border: 2px solid var(--accent-cyan);
+      padding: 3px;
+      position: relative;
+      box-shadow: var(--glow-cyan);
+    }
+    .mentor-avatar-wrap img {
+      width: 100%; height: 100%;
+      border-radius: 50%;
+      object-fit: cover;
+    }
+    .status-pulse {
+      position: absolute;
+      bottom: 2px; right: 2px;
+      width: 12px; height: 12px;
+      background: var(--accent-green);
+      border-radius: 50%;
+      border: 2px solid var(--bg-deep);
+      animation: pulse 1.5s infinite;
+    }
+    @keyframes pulse { 0% { opacity: 1; transform: scale(1); } 50% { opacity: 0.4; transform: scale(1.2); } 100% { opacity: 1; transform: scale(1); } }
+
+    /* --- COMPONENT: COMMAND GRID --- */
+    .command-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+      gap: 20px;
+    }
+    .module-card {
+      background: var(--bg-surface);
+      border-radius: 12px;
+      padding: 24px;
+      border: var(--border);
+      box-shadow: var(--neo-shadow);
+      position: relative;
+      transition: 0.3s;
+      overflow: hidden;
+    }
+    .module-card:hover { border-color: var(--accent-cyan); box-shadow: 0 0 20px rgba(0, 212, 255, 0.1); }
+    .module-card h3 {
+      font-family: 'JetBrains Mono';
+      font-size: 13px;
+      margin: 0 0 15px 0;
+      color: var(--accent-cyan);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .module-card h3::before { content: '['; color: var(--text-low); }
+    .module-card h3::after { content: ']'; color: var(--text-low); }
+
+    .btn-action {
+      background: var(--bg-elevated);
+      color: var(--text-high);
+      border: var(--border);
+      padding: 12px 15px;
+      border-radius: 6px;
+      width: 100%;
+      margin-top: 15px;
+      cursor: pointer;
+      font-family: 'JetBrains Mono';
+      font-size: 11px;
+      text-transform: uppercase;
+      box-shadow: var(--neo-shadow);
+      transition: 0.2s;
+    }
+    .btn-action:hover { background: var(--accent-cyan); color: #000; font-weight: 700; }
+    .btn-action:active { box-shadow: var(--neo-inset); transform: scale(0.98); }
+
+    /* --- COMPONENT: DYNAMIC FEED --- */
+    .post-card {
+      background: var(--bg-surface);
+      border-radius: 16px;
+      overflow: hidden;
+      margin-bottom: 25px;
+      border: var(--border);
+      transition: 0.3s;
+    }
+    .post-card:hover { border-color: rgba(255, 255, 255, 0.2); }
+    .post-content { padding: 30px; }
+    .post-title a { color: var(--text-high); text-decoration: none; font-size: 24px; font-weight: 700; transition: 0.2s; }
+    .post-title a:hover { color: var(--accent-cyan); }
+    .post-meta { font-family: 'JetBrains Mono'; font-size: 10px; color: var(--text-low); margin-top: 10px; border-top: 1px solid rgba(255,255,255,0.05); padding-top: 10px; }
+
+    /* --- COMPONENT: ACTION DOCK & TERMINAL --- */
+    .action-dock {
+      position: fixed; bottom: 30px; right: 30px;
+      width: 65px; height: 65px;
+      background: var(--accent-orange);
+      border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      cursor: pointer; z-index: 1000;
+      box-shadow: 0 10px 30px rgba(255, 107, 53, 0.4);
+      font-size: 30px; color: #000; font-weight: bold;
+      transition: 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    }
+    .action-dock:hover { transform: rotate(90deg) scale(1.1); }
+    
+    .terminal-overlay {
+      position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+      background: rgba(0,0,0,0.85);
+      z-index: 2000;
+      display: none;
+      align-items: center; justify-content: center;
+      backdrop-filter: blur(8px);
+    }
+    .terminal-window {
+      width: 90%; max-width: 500px;
+      background: #050505;
+      border: 1px solid var(--accent-green);
+      border-radius: 4px;
+      padding: 20px;
+      font-family: 'JetBrains Mono', monospace;
+      box-shadow: 0 0 40px rgba(57, 255, 20, 0.15);
+    }
+    .terminal-header { color: var(--accent-green); border-bottom: 1px solid var(--accent-green); padding-bottom: 10px; margin-bottom: 20px; display:flex; justify-content: space-between; font-size: 12px; font-weight: 700; }
+
+    .terminal-option {
+      padding: 8px;
+      cursor: pointer;
+      border-left: 3px solid transparent;
+      transition: 0.2s;
+    }
+    .terminal-option:hover {
+      background: rgba(57, 255, 20, 0.1);
+      border-left: 3px solid var(--accent-green);
+      padding-left: 15px;
+    }
+
+    /* Utility */
+    .hidden { display: none; }
+    ::-webkit-scrollbar { width: 0; background: transparent; }
+  ]]></b:skin>
+</head>
+
+<body>
+  <!-- Floating Action Dock -->
+  <div class='action-dock' id='dock-trigger'>+</div>
+
+  <!-- Command Terminal Overlay -->
+  <div class='terminal-overlay' id='terminal-ui'>
+    <div class='terminal-window'>
+      <div class='terminal-header'>
+        <span>ANTINNA_OS_V1.1_SECURE</span>
+        <span id='close-term' style='cursor:pointer'>[CLOSE_X]</span>
+      </div>
+      <div style='color: var(--accent-green); font-size: 12px;'>
+        <div id='term-typing'>&gt; INITIALIZING ENCRYPTED UPLINK...</div><br/>
+        <div style='display:grid; gap:8px;'>
+          <div class='terminal-option' onclick='Antinna.termCmd("UPLINK_MENTOR")'>[01] UPLINK_MENTOR</div>
+          <div class='terminal-option' onclick='Antinna.termCmd("SCAN_FOUNDATIONS")'>[02] SCAN_FOUNDATIONS</div>
+          <div class='terminal-option' onclick='Antinna.termCmd("STOCKPILE_QUERY")'>[03] STOCKPILE_QUERY</div>
+          <div class='terminal-option' onclick='Antinna.termCmd("VANGUARD_DEPLOY")'>[04] VANGUARD_DEPLOY</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class='app-shell'>
+    
+    <!-- SYSTEM HEADER -->
+    <header class='module-card' style='display:flex; justify-content:space-between; align-items:center; border-left: 4px solid var(--accent-orange);'>
+      <div style='font-family:"JetBrains Mono"; font-weight:700; letter-spacing:-1px; font-size:20px;'>
+        ANTINNA<span style='color:var(--accent-orange)'>.SYS</span>
+      </div>
+      <div style='color:var(--accent-green); font-size:10px; font-family:"JetBrains Mono";' id='system-clock'>00:00:00 UTC</div>
+    </header>
+
+    <!-- FREQUENCY HEADER (DYNAMIC MENTORS) -->
+    <div class='frequency-container'>
+      <div class='frequency-label'>ACTIVE_MENTOR_FREQUENCIES</div>
+      <div class='mentor-scroller' id='mentor-feed'>
+        <!-- Loading Placeholders -->
+        <div class='mentor-node'><div class='mentor-avatar-wrap' style='border-color:#333'></div></div>
+        <div class='mentor-node'><div class='mentor-avatar-wrap' style='border-color:#333'></div></div>
+        <div class='mentor-node'><div class='mentor-avatar-wrap' style='border-color:#333'></div></div>
+      </div>
+    </div>
+
+    <!-- COMMAND GRID -->
+    <div class='command-grid'>
+      <b:section id='col-1' showaddelement='yes'>
+        <b:widget id='HTML1' locked='false' title='Foundations' type='HTML'>
+          <b:includable id='main'>
+            <div class='module-card'>
+              <h3>FOUNDATIONS_MODULE</h3>
+              <p style='color:var(--text-mid); font-size:13px;'>Architectural blueprints and contractor databases verified.</p>
+              <button class='btn-action'>SCAN_CONTRACTORS</button>
+            </div>
+          </b:includable>
+        </b:widget>
+      </b:section>
+
+      <b:section id='col-2' showaddelement='yes'>
+        <b:widget id='HTML2' locked='false' title='Stockpile' type='HTML'>
+          <b:includable id='main'>
+            <div class='module-card' style='border-top: 2px solid var(--accent-orange)'>
+              <h3 style='color:var(--accent-orange)'>STOCKPILE_MODULE</h3>
+              <div id='price-ticker' style='font-family:"JetBrains Mono"; font-size:12px; color:var(--accent-orange); background: rgba(255,107,53,0.05); padding: 10px; border-radius: 4px; border: 1px dashed rgba(255,107,53,0.2);'>LOADING_DATA...</div>
+              <button class='btn-action' style='background: var(--accent-orange); color: #000;'>OPEN_INVENTORY</button>
+            </div>
+          </b:includable>
+        </b:widget>
+      </b:section>
+
+      <b:section id='col-3' showaddelement='yes'>
+        <b:widget id='HTML3' locked='false' title='Vanguard' type='HTML'>
+          <b:includable id='main'>
+            <div class='module-card'>
+              <h3>VANGUARD_MODULE</h3>
+              <p style='color:var(--text-mid); font-size:13px;'>Verified skillsets within 5km radius. Ready for dispatch.</p>
+              <button class='btn-action'>LOCATE_TEAM</button>
+            </div>
+          </b:includable>
+        </b:widget>
+      </b:section>
+    </div>
+
+    <!-- CENTRAL FEED -->
+    <div class='feed-area'>
+      <b:section id='main-feed' showaddelement='no'>
+        <b:widget id='Blog1' locked='true' title='Blog Posts' type='Blog'>
+          <b:includable id='main'>
+            <b:loop values='data:posts' var='post'>
+              <article class='post-card'>
+                <b:if cond='data:post.firstImageUrl'>
+                  <div style='height:240px; background-size:cover; background-position:center; border-bottom: 1px solid rgba(255,255,255,0.1);' expr:style='&quot;background-image:url(&quot; + data:post.firstImageUrl + &quot;)&quot;'></div>
+                </b:if>
+                <div class='post-content'>
+                  <h2 class='post-title'><a expr:href='data:post.url'><data:post.title/></a></h2>
+                  <div class='post-meta'>[TS_REF: <data:post.timestamp/>] // [AUTH_SIG: <data:post.author/>]</div>
+                  <div style='margin-top:15px; color:var(--text-mid); font-size:15px; line-height: 1.8;'><data:post.snippet/></div>
+                </div>
+              </article>
+            </b:loop>
+          </b:includable>
+        </b:widget>
+      </b:section>
+    </div>
+
+    <!-- SYSTEM FOOTER -->
+    <footer style='text-align:center; padding: 60px 0; color:var(--text-low); font-family:"JetBrains Mono"; font-size:10px; letter-spacing: 1px;'>
+      &#169; 2024 ANTINNA_PLATFORM // VERIFIED_ENCRYPTED_CONNECTION // END_OF_TRANSMISSION
+    </footer>
+
+  </div>
+
+  <!-- CORE_LOGIC_SCRIPT -->
+  <script type='text/javascript'>
+    //<![CDATA[
+    const Antinna = {
+      init() {
+        this.fetchMentors();
+        this.initTerminal();
+        this.runTicker();
+        this.updateClock();
+        setInterval(() => this.updateClock(), 1000);
+      },
+
+      updateClock() {
+        const el = document.getElementById('system-clock');
+        if (el) el.innerText = new Date().toUTCString().split(' ')[4] + ' UTC_SYNC';
+      },
+
+      async fetchMentors() {
+        try {
+          const res = await fetch('/feeds/posts/default/-/Mentor?alt=json&max-results=10');
+          const data = await res.json();
+          const feed = document.getElementById('mentor-feed');
+          
+          if(data.feed.entry) {
+            feed.innerHTML = '';
+            data.feed.entry.forEach(entry => {
+              const name = entry.title.$t.toUpperCase();
+              const img = entry.media$thumbnail ? entry.media$thumbnail.url.replace('s72-c', 's150-c') : 'https://via.placeholder.com/150/111/00d4ff?text=M';
+              const link = entry.link.find(l => l.rel === 'alternate').href;
+              
+              feed.innerHTML += `
+                <div class="mentor-node" onclick="location.href='${link}'">
+                  <div class="mentor-avatar-wrap">
+                    <img src="${img}" alt="${name}"/>
+                    <div class="status-pulse"></div>
+                  </div>
+                  <div style="font-size:9px; margin-top:8px; color:var(--accent-cyan); font-family:'JetBrains Mono'; font-weight:700;">${name.split(' ')[0]}</div>
+                </div>
+              `;
+            });
+          }
+        } catch(e) { console.error("Antinna Engine: Signal Failed."); }
+      },
+
+      initTerminal() {
+        const trigger = document.getElementById('dock-trigger');
+        const overlay = document.getElementById('terminal-ui');
+        const close = document.getElementById('close-term');
+
+        trigger.onclick = () => {
+          overlay.style.display = 'flex';
+          const typeEl = document.getElementById('term-typing');
+          typeEl.innerText = '> ';
+          let text = "INITIALIZING SECURE BROADCAST INTERFACE...";
+          let i = 0;
+          const interval = setInterval(() => {
+            typeEl.innerText += text[i];
+            i++;
+            if(i === text.length) clearInterval(interval);
+          }, 30);
+        };
+        close.onclick = () => overlay.style.display = 'none';
+      },
+
+      termCmd(cmd) {
+        const overlay = document.getElementById('terminal-ui');
+        alert(`EXECUTING: ${cmd} ... Signal transmission established.`);
+        overlay.style.display = 'none';
+      },
+
+      runTicker() {
+        const ticker = document.getElementById('price-ticker');
+        const materials = [
+          "CEMENT: $450/t [STABLE]", 
+          "REBAR: $912/t [RISING]", 
+          "GRAVEL: $42/yd [FALLING]", 
+          "BRICK: $0.85/u [STABLE]",
+          "LABOR_INDEX: 1.04 [OPTIMIZED]"
+        ];
+        let idx = 0;
+        setInterval(() => {
+          ticker.style.opacity = 0;
+          setTimeout(() => {
+            ticker.innerText = materials[idx];
+            ticker.style.opacity = 1;
+            idx = (idx + 1) % materials.length;
+          }, 200);
+        }, 4000);
+      }
+    };
+
+    document.addEventListener('DOMContentLoaded', () => Antinna.init());
+    //]]>
+  </script>
+</body>
+</html>
