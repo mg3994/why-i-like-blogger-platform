@@ -1,0 +1,479 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html>
+<html b:version='2' class='v2' expr:dir='data:blog.languageDirection' xmlns='http://www.w3.org/1999/xhtml' xmlns:b='http://www.google.com/2005/gml/b' xmlns:data='http://www.google.com/2005/gml/data' xmlns:expr='http://www.google.com/2005/gml/expr'>
+<head>
+  <b:include data='blog' name='all-head-content'/>
+  <meta charset='UTF-8'/>
+  <meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover' name='viewport'/>
+  <title><data:blog.pageTitle/></title>
+
+  <!-- Google Fonts -->
+  <link href='https://fonts.googleapis.com/css2?family=Roboto+Condensed:wght@400;700&amp;family=JetBrains+Mono:wght@400;700&amp;display=swap' rel='stylesheet'/>
+
+  <b:skin><![CDATA[
+    /*
+    -----------------------------------------------
+    ANTINNA INDUSTRIAL-NOIR OS V1.2 (PREMIUM)
+    -----------------------------------------------
+    */
+    :root {
+      --bg-deep: #060606;
+      --bg-surface: #0f0f0f;
+      --bg-elevated: #181818;
+      --accent-cyan: #00d4ff;
+      --accent-orange: #ff6b35;
+      --accent-green: #39ff14;
+      --accent-red: #ff3131;
+      --text-high: #ffffff;
+      --text-mid: #9a9a9a;
+      --text-low: #333333;
+      --border: 1px solid rgba(255, 255, 255, 0.05);
+      --neo-shadow: 8px 8px 16px #030303, -4px -4px 12px #141414;
+      --glow-cyan: 0 0 15px rgba(0, 212, 255, 0.2);
+    }
+
+    body {
+      background-color: var(--bg-deep);
+      color: var(--text-high);
+      font-family: 'Roboto Condensed', sans-serif;
+      margin: 0; padding: 0;
+      line-height: 1.6;
+      overflow-x: hidden;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* --- SCANLINE EFFECT --- */
+    body::before {
+      content: " ";
+      position: fixed; top: 0; left: 0; bottom: 0; right: 0;
+      background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.25) 50%), linear-gradient(90deg, rgba(255, 0, 0, 0.06), rgba(0, 255, 0, 0.02), rgba(0, 0, 255, 0.06));
+      z-index: 9999;
+      background-size: 100% 2px, 3px 100%;
+      pointer-events: none;
+      opacity: 0.3;
+    }
+
+    /* --- LAYOUT STRUCTURE --- */
+    .app-shell {
+      display: flex;
+      flex-direction: column;
+      gap: 24px;
+      padding: 20px;
+      max-width: 1300px;
+      margin: 0 auto;
+    }
+
+    /* --- COMPONENT: FREQUENCY HEADER --- */
+    .frequency-container {
+      overflow: hidden;
+      padding: 10px 0;
+      position: relative;
+    }
+    .frequency-label {
+      font-family: 'JetBrains Mono';
+      font-size: 9px;
+      color: var(--accent-cyan);
+      text-transform: uppercase;
+      margin-bottom: 12px;
+      letter-spacing: 3px;
+      display: flex;
+      align-items: center;
+      gap: 15px;
+    }
+    .frequency-label::after { content: ''; flex: 1; height: 1px; background: repeating-linear-gradient(90deg, var(--accent-cyan), var(--accent-cyan) 2px, transparent 2px, transparent 4px); opacity: 0.3; }
+    
+    .mentor-scroller {
+      display: flex;
+      gap: 20px;
+      overflow-x: auto;
+      padding: 10px 5px 20px 5px;
+      scrollbar-width: none;
+    }
+    .mentor-node {
+      flex: 0 0 75px;
+      text-align: center;
+      transition: 0.4s cubic-bezier(0.2, 1, 0.3, 1);
+      cursor: pointer;
+    }
+    .mentor-node:hover { transform: translateY(-5px); }
+    .mentor-avatar-wrap {
+      width: 70px; height: 70px;
+      border-radius: 12px;
+      background: var(--bg-surface);
+      border: 1px solid var(--accent-cyan);
+      padding: 4px;
+      position: relative;
+      box-shadow: var(--glow-cyan);
+    }
+    .mentor-avatar-wrap img {
+      width: 100%; height: 100%;
+      border-radius: 8px;
+      object-fit: cover;
+      filter: grayscale(0.5) contrast(1.2);
+    }
+    .status-pulse {
+      position: absolute;
+      top: -4px; right: -4px;
+      width: 10px; height: 10px;
+      background: var(--accent-green);
+      border-radius: 50%;
+      box-shadow: 0 0 10px var(--accent-green);
+      animation: pulse 2s infinite;
+    }
+    @keyframes pulse { 0% { opacity: 1; transform: scale(1); } 50% { opacity: 0.4; transform: scale(1.3); } 100% { opacity: 1; transform: scale(1); } }
+
+    /* --- COMPONENT: COMMAND GRID --- */
+    .command-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 20px;
+    }
+    .module-card {
+      background: var(--bg-surface);
+      border-radius: 4px;
+      padding: 24px;
+      border: var(--border);
+      position: relative;
+      transition: 0.3s;
+      overflow: hidden;
+    }
+    .module-card::before {
+       content: ""; position: absolute; top: 0; left: 0; width: 100%; height: 2px; background: var(--accent-cyan); opacity: 0; transition: 0.3s;
+    }
+    .module-card:hover::before { opacity: 1; }
+    .module-card:hover { background: #121212; border-color: rgba(0, 212, 255, 0.3); }
+
+    .module-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 20px;
+    }
+    .module-header h3 {
+      font-family: 'JetBrains Mono';
+      font-size: 11px;
+      margin: 0;
+      color: var(--text-high);
+      letter-spacing: 1px;
+    }
+    .status-tag {
+      font-family: 'JetBrains Mono';
+      font-size: 8px;
+      padding: 2px 6px;
+      background: rgba(57, 255, 20, 0.1);
+      color: var(--accent-green);
+      border: 1px solid var(--accent-green);
+    }
+
+    .btn-action {
+      background: transparent;
+      color: var(--accent-cyan);
+      border: 1px solid var(--accent-cyan);
+      padding: 12px 15px;
+      width: 100%;
+      margin-top: 15px;
+      cursor: pointer;
+      font-family: 'JetBrains Mono';
+      font-size: 10px;
+      text-transform: uppercase;
+      transition: 0.3s;
+      position: relative;
+    }
+    .btn-action:hover { background: var(--accent-cyan); color: #000; box-shadow: 0 0 20px rgba(0, 212, 255, 0.4); }
+
+    /* --- COMPONENT: DYNAMIC FEED --- */
+    .post-card {
+      background: var(--bg-surface);
+      margin-bottom: 25px;
+      border: var(--border);
+      display: flex;
+      flex-direction: row;
+      min-height: 200px;
+    }
+    @media (max-width: 768px) { .post-card { flex-direction: column; } }
+    
+    .post-thumb {
+      flex: 0 0 300px;
+      background-size: cover;
+      background-position: center;
+      position: relative;
+    }
+    .post-thumb::after { content: ''; position: absolute; inset: 0; background: linear-gradient(90deg, transparent, var(--bg-surface)); }
+    
+    .post-content { padding: 30px; flex: 1; display: flex; flex-direction: column; justify-content: center; }
+    .post-title a { color: var(--text-high); text-decoration: none; font-size: 26px; font-weight: 700; transition: 0.2s; letter-spacing: -1px; }
+    .post-title a:hover { color: var(--accent-cyan); text-shadow: 0 0 10px rgba(0,212,255,0.5); }
+    .post-meta { font-family: 'JetBrains Mono'; font-size: 9px; color: var(--text-low); margin-top: 15px; display: flex; gap: 20px; }
+    .post-meta span { color: var(--accent-orange); }
+
+    /* --- ACTION DOCK & TERMINAL --- */
+    .action-dock {
+      position: fixed; bottom: 30px; right: 30px;
+      width: 60px; height: 60px;
+      background: #000;
+      border: 2px solid var(--accent-orange);
+      color: var(--accent-orange);
+      display: flex; align-items: center; justify-content: center;
+      cursor: pointer; z-index: 1000;
+      box-shadow: 0 0 20px rgba(255, 107, 53, 0.2);
+      font-size: 24px; transition: 0.3s;
+    }
+    .action-dock:hover { background: var(--accent-orange); color: #000; transform: translateY(-5px); }
+    
+    .terminal-overlay {
+      position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+      background: rgba(0,0,0,0.95);
+      z-index: 2000;
+      display: none;
+      align-items: center; justify-content: center;
+    }
+    .terminal-window {
+      width: 95%; max-width: 600px;
+      background: #000;
+      border: 1px solid var(--accent-green);
+      padding: 30px;
+      font-family: 'JetBrains Mono', monospace;
+    }
+    .terminal-header { color: var(--accent-green); border-bottom: 1px dashed var(--accent-green); padding-bottom: 15px; margin-bottom: 20px; display:flex; justify-content: space-between; font-size: 11px; }
+
+    .terminal-nav { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin-top: 20px; }
+    .term-btn { border: 1px solid rgba(57, 255, 20, 0.3); padding: 15px; color: var(--accent-green); font-size: 11px; cursor: pointer; transition: 0.2s; }
+    .term-btn:hover { background: var(--accent-green); color: #000; }
+
+    /* Utility */
+    ::-webkit-scrollbar { width: 4px; height: 4px; }
+    ::-webkit-scrollbar-thumb { background: var(--accent-cyan); }
+    ::-webkit-scrollbar-track { background: var(--bg-deep); }
+  ]]></b:skin>
+</head>
+
+<body>
+  <!-- Action Dock -->
+  <div class='action-dock' id='dock-trigger'>CMD</div>
+
+  <!-- Terminal UI -->
+  <div class='terminal-overlay' id='terminal-ui'>
+    <div class='terminal-window'>
+      <div class='terminal-header'>
+        <span>ANTINNA_NETWORK_V1.2_SHELL</span>
+        <span id='close-term' style='cursor:pointer'>[X_EXIT]</span>
+      </div>
+      <div style='color: var(--accent-green); font-size: 12px;'>
+        <div id='term-typing'>&gt; WAITING_FOR_INPUT...</div>
+        <div class='terminal-nav'>
+          <div class='term-btn' onclick='Antinna.termCmd("NEURAL_UPLINK")'>[A] NEURAL_UPLINK</div>
+          <div class='term-btn' onclick='Antinna.termCmd("GRID_SCAN")'>[B] GRID_SCAN</div>
+          <div class='term-btn' onclick='Antinna.termCmd("LOGISTICS_SYNC")'>[C] LOGISTICS_SYNC</div>
+          <div class='term-btn' onclick='Antinna.termCmd("CLEAR_BUFFER")'>[D] CLEAR_BUFFER</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class='app-shell'>
+    
+    <!-- HEADER -->
+    <header style='display:flex; justify-content:space-between; align-items:flex-end; padding: 20px 0; border-bottom: 1px solid rgba(255,255,255,0.05);'>
+      <div>
+        <div style='font-family:"JetBrains Mono"; font-weight:700; letter-spacing:-2px; font-size:28px;'>
+          ANTINNA<span style='color:var(--accent-orange)'>.X</span>
+        </div>
+        <div style='font-size:9px; font-family:"JetBrains Mono"; color:var(--text-low); letter-spacing: 2px;'>DISTRIBUTED_CONSTRUCTION_OS</div>
+      </div>
+      <div style='text-align:right;'>
+        <div id='system-clock' style='color:var(--accent-green); font-family:"JetBrains Mono"; font-size:12px;'>00:00:00</div>
+        <div style='color:var(--text-low); font-size:8px; font-family:"JetBrains Mono";'>SECURE_NODE_771_B</div>
+      </div>
+    </header>
+
+    <!-- MENTOR FREQUENCIES -->
+    <div class='frequency-container'>
+      <div class='frequency-label'>BROADCASTING_FREQUENCIES</div>
+      <div class='mentor-scroller' id='mentor-feed'>
+        <div class='mentor-node'><div class='mentor-avatar-wrap' style='border-color:#222'></div></div>
+        <div class='mentor-node'><div class='mentor-avatar-wrap' style='border-color:#222'></div></div>
+      </div>
+    </div>
+
+    <!-- CONTROL GRID -->
+    <div class='command-grid'>
+      <b:section id='col-1' showaddelement='yes'>
+        <b:widget id='HTML1' locked='false' title='Architects' type='HTML'>
+          <b:includable id='main'>
+            <div class='module-card'>
+              <div class='module-header'>
+                <h3>ARCHITECT_DB</h3>
+                <div class='status-tag'>ACTIVE</div>
+              </div>
+              <p style='color:var(--text-mid); font-size:12px; margin:0;'>Encrypted access to architectural blueprints and structural engineering nodes.</p>
+              <button class='btn-action'>ACCESS_BLUEPRINTS</button>
+            </div>
+          </b:includable>
+        </b:widget>
+      </b:section>
+
+      <b:section id='col-2' showaddelement='yes'>
+        <b:widget id='HTML2' locked='false' title='Logistics' type='HTML'>
+          <b:includable id='main'>
+            <div class='module-card' style='border-left: 2px solid var(--accent-orange)'>
+              <div class='module-header'>
+                <h3 style='color:var(--accent-orange)'>STOCKPILE_V3</h3>
+                <div class='status-tag' style='color:var(--accent-orange); border-color:var(--accent-orange);'>LIVE</div>
+              </div>
+              <div id='price-ticker' style='font-family:"JetBrains Mono"; font-size:11px; color:var(--accent-orange);'>FETCHING_MARKET_DATA...</div>
+              <button class='btn-action' style='border-color:var(--accent-orange); color:var(--accent-orange);'>QUERY_INVENTORY</button>
+            </div>
+          </b:includable>
+        </b:widget>
+      </b:section>
+
+      <b:section id='col-3' showaddelement='yes'>
+        <b:widget id='HTML3' locked='false' title='Vanguard' type='HTML'>
+          <b:includable id='main'>
+            <div class='module-card'>
+              <div class='module-header'>
+                <h3>VANGUARD_NODES</h3>
+                <div class='status-tag'>OPTIMIZED</div>
+              </div>
+              <p style='color:var(--text-mid); font-size:12px; margin:0;'>Real-time tracking of verified labor skillsets within proximity parameters.</p>
+              <button class='btn-action'>SYNC_VANGUARD</button>
+            </div>
+          </b:includable>
+        </b:widget>
+      </b:section>
+    </div>
+
+    <!-- MAIN TRANSMISSION FEED -->
+    <div class='transmission-feed'>
+      <div class='frequency-label' style='margin-bottom:25px;'>INCOMING_DATA_STREAM</div>
+      <b:section id='main-feed' showaddelement='no'>
+        <b:widget id='Blog1' locked='true' title='Blog Posts' type='Blog'>
+          <b:includable id='main'>
+            <b:loop values='data:posts' var='post'>
+              <article class='post-card'>
+                <b:if cond='data:post.firstImageUrl'>
+                  <div class='post-thumb' expr:style='&quot;background-image:url(&quot; + data:post.firstImageUrl + &quot;)&quot;'></div>
+                </b:if>
+                <div class='post-content'>
+                  <h2 class='post-title'><a expr:href='data:post.url'><data:post.title/></a></h2>
+                  <div style='margin-top:10px; color:var(--text-mid); font-size:14px; line-height: 1.6;'><data:post.snippet/></div>
+                  <div class='post-meta'>
+                    <div>REF_ID: <span><data:post.author/></span></div>
+                    <div>TIMESTAMP: <span><data:post.timestamp/></span></div>
+                  </div>
+                </div>
+              </article>
+            </b:loop>
+          </b:includable>
+        </b:widget>
+      </b:section>
+    </div>
+
+    <!-- FOOTER -->
+    <footer style='padding: 60px 0; border-top: 1px solid rgba(255,255,255,0.05); display: flex; justify-content: space-between; align-items: center; opacity: 0.5;'>
+      <div style='font-family:"JetBrains Mono"; font-size:9px;'>&#169; 2024 ANTINNA_CORP // PUBLIC_RELAY_B1</div>
+      <div style='font-family:"JetBrains Mono"; font-size:9px; color:var(--accent-green);'>STATUS: OPERATIONAL</div>
+    </footer>
+
+  </div>
+
+  <!-- SYSTEM_SCRIPTS -->
+  <script type='text/javascript'>
+    //<![CDATA[
+    const Antinna = {
+      init() {
+        this.fetchMentors();
+        this.initTerminal();
+        this.runTicker();
+        this.updateClock();
+        setInterval(() => this.updateClock(), 1000);
+      },
+
+      updateClock() {
+        const el = document.getElementById('system-clock');
+        const now = new Date();
+        if (el) el.innerText = now.getHours().toString().padStart(2, '0') + ':' + 
+                             now.getMinutes().toString().padStart(2, '0') + ':' + 
+                             now.getSeconds().toString().padStart(2, '0') + ' RELAY_SYNC';
+      },
+
+      async fetchMentors() {
+        try {
+          const res = await fetch('/feeds/posts/default/-/Mentor?alt=json&max-results=10');
+          const data = await res.json();
+          const feed = document.getElementById('mentor-feed');
+          
+          if(data.feed.entry) {
+            feed.innerHTML = '';
+            data.feed.entry.forEach(entry => {
+              const name = entry.title.$t.toUpperCase();
+              const img = entry.media$thumbnail ? entry.media$thumbnail.url.replace('s72-c', 's150-c') : 'https://via.placeholder.com/150/111/00d4ff?text=M';
+              const link = entry.link.find(l => l.rel === 'alternate').href;
+              
+              feed.innerHTML += `
+                <div class="mentor-node" onclick="location.href='${link}'">
+                  <div class="mentor-avatar-wrap">
+                    <img src="${img}" alt="${name}"/>
+                    <div class="status-pulse"></div>
+                  </div>
+                  <div style="font-size:8px; margin-top:8px; color:var(--accent-cyan); font-family:'JetBrains Mono'; font-weight:700; letter-spacing:1px;">${name.split(' ')[0]}</div>
+                </div>
+              `;
+            });
+          }
+        } catch(e) { console.warn("Antinna: Relay node unreachable."); }
+      },
+
+      initTerminal() {
+        const trigger = document.getElementById('dock-trigger');
+        const overlay = document.getElementById('terminal-ui');
+        const close = document.getElementById('close-term');
+
+        trigger.onclick = () => {
+          overlay.style.display = 'flex';
+          this.typeWriter("term-typing", "> INITIALIZING NEURAL UPLINK... [SUCCESS] > WAITING FOR COMMAND_");
+        };
+        close.onclick = () => overlay.style.display = 'none';
+      },
+
+      typeWriter(id, text) {
+        const el = document.getElementById(id);
+        el.innerText = '';
+        let i = 0;
+        const interval = setInterval(() => {
+          el.innerText += text[i];
+          i++;
+          if(i === text.length) clearInterval(interval);
+        }, 20);
+      },
+
+      termCmd(cmd) {
+        this.typeWriter("term-typing", `> EXECUTING ${cmd}... ENCRYPTING SIGNAL... DISPATCHED.`);
+        setTimeout(() => document.getElementById('terminal-ui').style.display = 'none', 1500);
+      },
+
+      runTicker() {
+        const ticker = document.getElementById('price-ticker');
+        const materials = [
+          "CEMENT_U1: $482.50 [STABLE]", 
+          "REBAR_H2: $914.20 [RISING]", 
+          "GRAVEL_L1: $44.10 [FALLING]", 
+          "BITUMEN_X: $122.90 [VOLATILE]"
+        ];
+        let idx = 0;
+        setInterval(() => {
+          ticker.style.opacity = 0;
+          setTimeout(() => {
+            ticker.innerText = materials[idx];
+            ticker.style.opacity = 1;
+            idx = (idx + 1) % materials.length;
+          }, 300);
+        }, 5000);
+      }
+    };
+
+    document.addEventListener('DOMContentLoaded', () => Antinna.init());
+    //]]>
+  </script>
+</body>
+</html>
