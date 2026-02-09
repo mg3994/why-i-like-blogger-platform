@@ -13,7 +13,7 @@
   <b:skin><![CDATA[
     /*
     -----------------------------------------------
-    ANTINNA INDUSTRIAL-NOIR OS V1.5 (ELITE)
+    ANTINNA INDUSTRIAL-NOIR OS V1.5.1 (PATCHED)
     -----------------------------------------------
     */
     :root {
@@ -212,9 +212,9 @@
         <span id='close-term' style='cursor:pointer'>[X_CLOSE]</span>
       </div>
       <div class='term-log' id='term-output'>
-        <div>> CONNECTION ESTABLISHED...</div>
-        <div>> KERNEL_LOADED: NODE_771_B</div>
-        <div>> WAITING FOR USER INPUT...</div>
+        <div>&gt; CONNECTION ESTABLISHED...</div>
+        <div>&gt; KERNEL_LOADED: NODE_771_B</div>
+        <div>&gt; WAITING FOR USER INPUT...</div>
       </div>
       <div class='term-input-line'>
         <span>&gt;</span>
@@ -328,7 +328,7 @@
 
     <!-- SYSTEM FOOTER -->
     <footer style='padding: 80px 0; border-top: 1px solid #111; display:flex; justify-content:space-between; opacity:0.3; font-family:var(--font-mono); font-size:9px;'>
-      <div>&copy; 2024 ANTINNA_INDUSTRIES // ALL RIGHTS RESERVED</div>
+      <div>&#169; 2024 ANTINNA_INDUSTRIES // ALL RIGHTS RESERVED</div>
       <div>ENCRYPTION: AES-256-GCM</div>
     </footer>
 
@@ -342,17 +342,6 @@
         this.loadUplinks();
         this.initTerminal();
         this.runMarketTicker();
-        
-        // Interaction: Hover parallax on modules
-        document.querySelectorAll('.module-hex').forEach(card => {
-          card.addEventListener('mousemove', (e) => {
-            const rect = card.getBoundingClientRect();
-            const x = e.clientX - rect.left;
-            const y = e.clientY - rect.top;
-            card.style.setProperty('--mouse-x', `${x}px`);
-            card.style.setProperty('--mouse-y', `${y}px`);
-          });
-        });
       },
 
       startTime() {
@@ -384,7 +373,7 @@
             });
           }
         } catch (err) {
-          console.warn("Uplink failed. Defaulting to local buffer.");
+          console.warn("Uplink failed. Node offline.");
         }
       },
 
@@ -392,7 +381,6 @@
         const shell = document.getElementById('terminal-shell');
         const trigger = document.getElementById('term-trigger');
         const input = document.getElementById('term-input');
-        const output = document.getElementById('term-output');
 
         trigger.onclick = () => { shell.style.display = 'flex'; input.focus(); };
         document.getElementById('close-term').onclick = () => shell.style.display = 'none';
@@ -428,7 +416,7 @@
             break;
           case 'LOGS':
             this.log("> ACCESSING SECURE LOG_BUFFER...");
-            this.log("> [INFO] KERNEL VERSION 1.5.0-STABLE");
+            this.log("> [INFO] KERNEL VERSION 1.5.1-PATCHED");
             this.log("> [WARN] LATENCY SPIKE IN SECTOR 4");
             break;
           default:
