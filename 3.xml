@@ -1,0 +1,463 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html>
+<html b:version='2' class='v2' expr:dir='data:blog.languageDirection' xmlns='http://www.w3.org/1999/xhtml' xmlns:b='http://www.google.com/2005/gml/b' xmlns:data='http://www.google.com/2005/gml/data' xmlns:expr='http://www.google.com/2005/gml/expr'>
+<head>
+  <b:include data='blog' name='all-head-content'/>
+  <meta charset='UTF-8'/>
+  <meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover' name='viewport'/>
+  <title><data:blog.pageTitle/></title>
+
+  <!-- Google Fonts -->
+  <link href='https://fonts.googleapis.com/css2?family=Roboto+Condensed:wght@400;700&amp;family=JetBrains+Mono:wght@400;700&amp;display=swap' rel='stylesheet'/>
+
+  <b:skin><![CDATA[
+    /*
+    -----------------------------------------------
+    ANTINNA INDUSTRIAL-NOIR OS V1.5 (ELITE)
+    -----------------------------------------------
+    */
+    :root {
+      --bg-deep: #040404;
+      --bg-surface: #0a0a0a;
+      --bg-elevated: #111111;
+      --accent-cyan: #00f2ff;
+      --accent-orange: #ff5e00;
+      --accent-green: #00ff66;
+      --accent-red: #ff0033;
+      --text-high: #f0f0f0;
+      --text-mid: #888888;
+      --text-low: #222222;
+      --border-dim: 1px solid rgba(255, 255, 255, 0.03);
+      --border-glow: 1px solid rgba(0, 242, 255, 0.3);
+      --glow-cyan: 0 0 20px rgba(0, 242, 255, 0.15);
+      --font-main: 'Roboto Condensed', sans-serif;
+      --font-mono: 'JetBrains Mono', monospace;
+    }
+
+    body {
+      background-color: var(--bg-deep);
+      color: var(--text-high);
+      font-family: var(--font-main);
+      margin: 0; padding: 0;
+      line-height: 1.6;
+      overflow-x: hidden;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* --- CRT & SCANLINE OVERLAY --- */
+    .crt-overlay {
+      position: fixed; top: 0; left: 0; width: 100vw; height: 100vh;
+      background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.15) 50%), linear-gradient(90deg, rgba(255, 0, 0, 0.03), rgba(0, 255, 0, 0.01), rgba(0, 0, 255, 0.03));
+      z-index: 9999; background-size: 100% 3px, 3px 100%;
+      pointer-events: none; opacity: 0.4;
+    }
+
+    /* --- DATA GRID BACKGROUND --- */
+    .grid-bg {
+      position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+      background-image: 
+        linear-gradient(rgba(0, 242, 255, 0.03) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(0, 242, 255, 0.03) 1px, transparent 1px);
+      background-size: 50px 50px;
+      z-index: -1;
+    }
+
+    .app-shell {
+      display: flex; flex-direction: column; gap: 32px;
+      padding: 40px 20px; max-width: 1400px; margin: 0 auto;
+      animation: fadeIn 1s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+
+    /* --- COMPONENT: LOGO & STATUS --- */
+    .os-header {
+      display: flex; justify-content: space-between; align-items: center;
+      padding-bottom: 20px; border-bottom: 2px solid var(--text-low);
+    }
+    .logo-block { position: relative; cursor: crosshair; }
+    .logo-main {
+      font-family: var(--font-mono); font-weight: 700; font-size: 32px;
+      letter-spacing: -2px; color: var(--text-high); text-transform: uppercase;
+    }
+    .logo-main span { color: var(--accent-orange); }
+    .logo-glitch {
+      position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+      opacity: 0; transition: 0.1s;
+    }
+    .logo-block:hover .logo-glitch {
+      opacity: 0.5; animation: glitch 0.3s infinite; color: var(--accent-cyan);
+    }
+    @keyframes glitch { 
+      0% { transform: translate(2px, -2px); } 
+      50% { transform: translate(-2px, 2px); } 
+      100% { transform: translate(0); } 
+    }
+
+    /* --- COMPONENT: NEURAL UPLINK (MENTORS) --- */
+    .uplink-section { position: relative; }
+    .uplink-label {
+      font-family: var(--font-mono); font-size: 10px; color: var(--accent-cyan);
+      letter-spacing: 4px; display: flex; align-items: center; gap: 15px; margin-bottom: 20px;
+    }
+    .uplink-label::after { content: ''; flex: 1; height: 1px; background: rgba(0, 242, 255, 0.2); }
+    
+    .uplink-grid {
+      display: flex; gap: 16px; overflow-x: auto; padding-bottom: 10px; scrollbar-width: none;
+    }
+    .uplink-node {
+      flex: 0 0 85px; position: relative; transition: 0.4s; cursor: pointer;
+    }
+    .uplink-node:hover { transform: scale(1.05); }
+    .node-frame {
+      width: 80px; height: 80px; border: 1px solid var(--text-low); padding: 4px;
+      background: var(--bg-surface); clip-path: polygon(10% 0, 100% 0, 100% 90%, 90% 100%, 0 100%, 0 10%);
+      position: relative; overflow: hidden;
+    }
+    .node-frame img { width: 100%; height: 100%; object-fit: cover; filter: grayscale(1) brightness(0.8); transition: 0.3s; }
+    .uplink-node:hover img { filter: grayscale(0) brightness(1); }
+    .node-status {
+      position: absolute; bottom: 8px; right: 8px; width: 6px; height: 6px;
+      background: var(--accent-green); border-radius: 50%; box-shadow: 0 0 10px var(--accent-green);
+    }
+
+    /* --- COMPONENT: MODULES --- */
+    .module-grid {
+      display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 24px;
+    }
+    .module-hex {
+      background: var(--bg-surface); border: var(--border-dim);
+      padding: 30px; position: relative; transition: 0.3s cubic-bezier(0.23, 1, 0.32, 1);
+    }
+    .module-hex:hover { border-color: var(--accent-cyan); box-shadow: var(--glow-cyan); background: #0d0d0d; }
+    .module-tag {
+      font-family: var(--font-mono); font-size: 9px; color: var(--accent-orange);
+      text-transform: uppercase; margin-bottom: 8px; display: block;
+    }
+    .module-hex h3 { margin: 0 0 15px 0; font-family: var(--font-mono); font-size: 14px; letter-spacing: 1px; }
+    
+    .data-line { height: 2px; background: var(--text-low); margin: 15px 0; position: relative; }
+    .data-line-fill { position: absolute; left: 0; top: 0; height: 100%; width: 40%; background: var(--accent-cyan); box-shadow: 0 0 10px var(--accent-cyan); }
+
+    .module-btn {
+      background: none; border: 1px solid var(--text-low); color: var(--text-mid);
+      width: 100%; padding: 12px; font-family: var(--font-mono); font-size: 10px;
+      cursor: pointer; transition: 0.3s; text-transform: uppercase;
+    }
+    .module-btn:hover { border-color: var(--accent-cyan); color: var(--accent-cyan); background: rgba(0, 242, 255, 0.05); }
+
+    /* --- COMPONENT: POST FEED --- */
+    .feed-container { display: flex; flex-direction: column; gap: 40px; }
+    .post-unit {
+      display: grid; grid-template-columns: 350px 1fr; border: var(--border-dim); background: var(--bg-surface);
+      overflow: hidden; min-height: 250px;
+    }
+    @media (max-width: 800px) { .post-unit { grid-template-columns: 1fr; } }
+    
+    .post-media { background-size: cover; background-position: center; position: relative; border-right: var(--border-dim); }
+    .post-media::after { content: ''; position: absolute; inset: 0; background: linear-gradient(90deg, rgba(10,10,10,0), rgba(10,10,10,1)); }
+    
+    .post-info { padding: 40px; display: flex; flex-direction: column; justify-content: center; }
+    .post-unit h2 a { color: var(--text-high); text-decoration: none; font-size: 28px; transition: 0.2s; }
+    .post-unit h2 a:hover { color: var(--accent-cyan); }
+    .post-summary { color: var(--text-mid); font-size: 14px; margin: 15px 0; }
+    .post-data { font-family: var(--font-mono); font-size: 10px; color: var(--text-low); display: flex; gap: 30px; }
+    .post-data span { color: var(--accent-cyan); }
+
+    /* --- TERMINAL & ACTION DOCK --- */
+    .dock {
+      position: fixed; bottom: 40px; right: 40px; z-index: 5000;
+      width: 64px; height: 64px; background: var(--bg-deep); border: 2px solid var(--accent-cyan);
+      display: flex; align-items: center; justify-content: center; color: var(--accent-cyan);
+      cursor: pointer; font-family: var(--font-mono); font-weight: 700; transition: 0.3s;
+    }
+    .dock:hover { background: var(--accent-cyan); color: #000; box-shadow: 0 0 30px var(--accent-cyan); transform: rotate(90deg); }
+
+    .terminal {
+      position: fixed; inset: 0; background: rgba(0,0,0,0.98); z-index: 6000;
+      display: none; align-items: center; justify-content: center; padding: 20px;
+    }
+    .terminal-box {
+      width: 100%; max-width: 700px; background: #000; border: 1px solid var(--accent-green);
+      padding: 30px; box-shadow: 0 0 50px rgba(0, 255, 102, 0.1);
+    }
+    .term-log {
+      height: 300px; overflow-y: auto; font-family: var(--font-mono); font-size: 12px;
+      color: var(--accent-green); margin: 20px 0; padding-right: 10px;
+    }
+    .term-input-line { display: flex; gap: 10px; color: var(--accent-green); font-family: var(--font-mono); }
+    .term-input-line input {
+      background: none; border: none; color: var(--accent-green); outline: none; flex: 1; font-family: var(--font-mono);
+    }
+
+    /* Scrollbars */
+    ::-webkit-scrollbar { width: 4px; }
+    ::-webkit-scrollbar-thumb { background: var(--accent-cyan); }
+    ::-webkit-scrollbar-track { background: var(--bg-deep); }
+  ]]></b:skin>
+</head>
+
+<body>
+  <div class='crt-overlay'></div>
+  <div class='grid-bg'></div>
+
+  <!-- Command Dock -->
+  <div class='dock' id='term-trigger'>SYST</div>
+
+  <!-- Terminal Shell -->
+  <div class='terminal' id='terminal-shell'>
+    <div class='terminal-box'>
+      <div style='display:flex; justify-content:space-between; color:var(--accent-green); font-family:var(--font-mono); font-size:10px; border-bottom:1px solid #111; padding-bottom:10px;'>
+        <span>ANTINNA_CORE_v1.5_SHELL</span>
+        <span id='close-term' style='cursor:pointer'>[X_CLOSE]</span>
+      </div>
+      <div class='term-log' id='term-output'>
+        <div>> CONNECTION ESTABLISHED...</div>
+        <div>> KERNEL_LOADED: NODE_771_B</div>
+        <div>> WAITING FOR USER INPUT...</div>
+      </div>
+      <div class='term-input-line'>
+        <span>&gt;</span>
+        <input autocomplete='off' id='term-input' placeholder='TYPE COMMAND...' type='text'/>
+      </div>
+      <div style='margin-top:20px; display:grid; grid-template-columns: repeat(4, 1fr); gap: 10px;'>
+        <button class='module-btn' onclick='Antinna.exec("UPLINK")'>[UPLINK]</button>
+        <button class='module-btn' onclick='Antinna.exec("RESCAN")'>[RESCAN]</button>
+        <button class='module-btn' onclick='Antinna.exec("LOGS")'>[LOGS]</button>
+        <button class='module-btn' onclick='Antinna.exec("CLEAR")'>[CLEAR]</button>
+      </div>
+    </div>
+  </div>
+
+  <div class='app-shell'>
+    
+    <!-- SYSTEM HEADER -->
+    <header class='os-header'>
+      <div class='logo-block'>
+        <div class='logo-main'>ANTINNA<span>.ELITE</span></div>
+        <div class='logo-glitch'>ANTINNA.ELITE</div>
+        <div style='font-size:9px; font-family:var(--font-mono); color:var(--text-mid); letter-spacing: 2px;'>INDUSTRIAL_DISTRIBUTION_PROTOCOL</div>
+      </div>
+      <div style='text-align:right; font-family:var(--font-mono);'>
+        <div id='syst-time' style='color:var(--accent-cyan); font-size:14px;'>00:00:00</div>
+        <div style='color:var(--text-low); font-size:9px;'>LATENCY: 14ms // PKT_LOSS: 0%</div>
+      </div>
+    </header>
+
+    <!-- NEURAL UPLINK -->
+    <section class='uplink-section'>
+      <div class='uplink-label'>NEURAL_UPLINK_BROADCAST</div>
+      <div class='uplink-grid' id='mentor-stream'>
+        <!-- Dynamic Content -->
+        <div class='uplink-node'><div class='node-frame'></div></div>
+        <div class='uplink-node'><div class='node-frame'></div></div>
+        <div class='uplink-node'><div class='node-frame'></div></div>
+      </div>
+    </section>
+
+    <!-- CONTROL GRID -->
+    <div class='module-grid'>
+      <b:section id='mod-1' showaddelement='yes'>
+        <b:widget id='HTML10' locked='false' title='Architect' type='HTML'>
+          <b:includable id='main'>
+            <div class='module-hex'>
+              <span class='module-tag'>Sub-Protocol: 01</span>
+              <h3>STRUCTURAL_GENESIS</h3>
+              <p style='color:var(--text-mid); font-size:12px;'>Access high-fidelity CAD relays and structural integrity simulations.</p>
+              <div class='data-line'><div class='data-line-fill' style='width:75%'></div></div>
+              <button class='module-btn'>MOUNT_BLUEPRINTS</button>
+            </div>
+          </b:includable>
+        </b:widget>
+      </b:section>
+
+      <b:section id='mod-2' showaddelement='yes'>
+        <b:widget id='HTML11' locked='false' title='Market' type='HTML'>
+          <b:includable id='main'>
+            <div class='module-hex' style='border-top: 2px solid var(--accent-orange)'>
+              <span class='module-tag' style='color:var(--accent-cyan)'>Market: LIVE</span>
+              <h3 style='color:var(--accent-orange)'>STOCKPILE_MARKET</h3>
+              <div id='ticker-wrap' style='font-family:var(--font-mono); font-size:11px; height: 40px; overflow:hidden;'>
+                <div id='ticker-content'>SYNCHRONIZING_MARKET_NODE...</div>
+              </div>
+              <button class='module-btn' style='border-color:var(--accent-orange); color:var(--accent-orange);'>TRADE_INDEX</button>
+            </div>
+          </b:includable>
+        </b:widget>
+      </b:section>
+
+      <b:section id='mod-3' showaddelement='yes'>
+        <b:widget id='HTML12' locked='false' title='Vanguard' type='HTML'>
+          <b:includable id='main'>
+            <div class='module-hex'>
+              <span class='module-tag'>Security: HIGH</span>
+              <h3>VANGUARD_FLEET</h3>
+              <p style='color:var(--text-mid); font-size:12px;'>Personnel tracking and labor availability metrics across local sectors.</p>
+              <div class='data-line'><div class='data-line-fill' style='width:30%; background:var(--accent-red); box-shadow: 0 0 10px var(--accent-red);'></div></div>
+              <button class='module-btn'>ENGAGE_SYNC</button>
+            </div>
+          </b:includable>
+        </b:widget>
+      </b:section>
+    </div>
+
+    <!-- MAIN FEED -->
+    <div class='feed-container'>
+      <div class='uplink-label'>ENCRYPTED_DATA_TRANSMISSIONS</div>
+      <b:section id='posts-feed' showaddelement='no'>
+        <b:widget id='Blog1' locked='true' title='Blog Posts' type='Blog'>
+          <b:includable id='main'>
+            <b:loop values='data:posts' var='post'>
+              <article class='post-unit'>
+                <div class='post-media' expr:style='&quot;background-image:url(&quot; + (data:post.firstImageUrl ? data:post.firstImageUrl : &quot;https://via.placeholder.com/600/111/222&quot;) + &quot;)&quot;'></div>
+                <div class='post-info'>
+                  <h2><a expr:href='data:post.url'><data:post.title/></a></h2>
+                  <div class='post-summary'><data:post.snippet/></div>
+                  <div class='post-data'>
+                    <div>UPLOADER: <span><data:post.author/></span></div>
+                    <div>SIG_STRENGTH: <span>98%</span></div>
+                    <div>RELAY_TIME: <span><data:post.timestamp/></span></div>
+                  </div>
+                </div>
+              </article>
+            </b:loop>
+          </b:includable>
+        </b:widget>
+      </b:section>
+    </div>
+
+    <!-- SYSTEM FOOTER -->
+    <footer style='padding: 80px 0; border-top: 1px solid #111; display:flex; justify-content:space-between; opacity:0.3; font-family:var(--font-mono); font-size:9px;'>
+      <div>&copy; 2024 ANTINNA_INDUSTRIES // ALL RIGHTS RESERVED</div>
+      <div>ENCRYPTION: AES-256-GCM</div>
+    </footer>
+
+  </div>
+
+  <script type='text/javascript'>
+    //<![CDATA[
+    const Antinna = {
+      init() {
+        this.startTime();
+        this.loadUplinks();
+        this.initTerminal();
+        this.runMarketTicker();
+        
+        // Interaction: Hover parallax on modules
+        document.querySelectorAll('.module-hex').forEach(card => {
+          card.addEventListener('mousemove', (e) => {
+            const rect = card.getBoundingClientRect();
+            const x = e.clientX - rect.left;
+            const y = e.clientY - rect.top;
+            card.style.setProperty('--mouse-x', `${x}px`);
+            card.style.setProperty('--mouse-y', `${y}px`);
+          });
+        });
+      },
+
+      startTime() {
+        setInterval(() => {
+          const now = new Date();
+          document.getElementById('syst-time').innerText = 
+            now.toLocaleTimeString('en-GB', { hour12: false }) + ' L_UTC';
+        }, 1000);
+      },
+
+      async loadUplinks() {
+        const stream = document.getElementById('mentor-stream');
+        try {
+          const res = await fetch('/feeds/posts/default/-/Mentor?alt=json&max-results=12');
+          const data = await res.json();
+          if (data.feed.entry) {
+            stream.innerHTML = '';
+            data.feed.entry.forEach(e => {
+              const name = e.title.$t.toUpperCase();
+              const thumb = e.media$thumbnail ? e.media$thumbnail.url.replace('s72-c', 's200-c') : 'https://via.placeholder.com/200/111/00f2ff?text=NODE';
+              const link = e.link.find(l => l.rel === 'alternate').href;
+              stream.innerHTML += `
+                <div class="uplink-node" onclick="location.href='${link}'">
+                  <div class="node-frame"><img src="${thumb}"/></div>
+                  <div style="font-family:var(--font-mono); font-size:8px; color:var(--accent-cyan); text-align:center; margin-top:8px;">${name.split(' ')[0]}</div>
+                  <div class="node-status"></div>
+                </div>
+              `;
+            });
+          }
+        } catch (err) {
+          console.warn("Uplink failed. Defaulting to local buffer.");
+        }
+      },
+
+      initTerminal() {
+        const shell = document.getElementById('terminal-shell');
+        const trigger = document.getElementById('term-trigger');
+        const input = document.getElementById('term-input');
+        const output = document.getElementById('term-output');
+
+        trigger.onclick = () => { shell.style.display = 'flex'; input.focus(); };
+        document.getElementById('close-term').onclick = () => shell.style.display = 'none';
+
+        input.onkeydown = (e) => {
+          if (e.key === 'Enter') {
+            const val = input.value.toUpperCase();
+            this.log(`> USER_EXEC: ${val}`);
+            this.exec(val);
+            input.value = '';
+          }
+        };
+      },
+
+      log(msg) {
+        const out = document.getElementById('term-output');
+        const div = document.createElement('div');
+        div.innerText = msg;
+        out.appendChild(div);
+        out.scrollTop = out.scrollHeight;
+      },
+
+      exec(cmd) {
+        switch(cmd) {
+          case 'CLEAR': document.getElementById('term-output').innerHTML = ''; break;
+          case 'RESCAN': 
+            this.log("> INITIATING SYSTEM SCAN...");
+            setTimeout(() => this.log("> SCAN COMPLETE. 0 THREATS DETECTED."), 1000);
+            break;
+          case 'UPLINK':
+            this.log("> RESETTING NEURAL NODES...");
+            this.loadUplinks();
+            break;
+          case 'LOGS':
+            this.log("> ACCESSING SECURE LOG_BUFFER...");
+            this.log("> [INFO] KERNEL VERSION 1.5.0-STABLE");
+            this.log("> [WARN] LATENCY SPIKE IN SECTOR 4");
+            break;
+          default:
+            this.log(`> ERROR: COMMAND '${cmd}' NOT RECOGNIZED.`);
+        }
+      },
+
+      runMarketTicker() {
+        const content = document.getElementById('ticker-content');
+        const data = [
+          "CONCRETE_RAW: $540.2 (+1.2%)",
+          "STEEL_BEAM_X: $1202.5 (-0.4%)",
+          "BIO_POLYMER: $88.1 (STABLE)",
+          "POWER_GRID_L: $0.12/kW (PEAK)"
+        ];
+        let i = 0;
+        setInterval(() => {
+          content.style.opacity = 0;
+          setTimeout(() => {
+            content.innerText = data[i];
+            content.style.opacity = 1;
+            i = (i + 1) % data.length;
+          }, 400);
+        }, 4000);
+      }
+    };
+
+    document.addEventListener('DOMContentLoaded', () => Antinna.init());
+    //]]>
+  </script>
+</body>
+</html>
